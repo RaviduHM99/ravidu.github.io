@@ -1,7 +1,8 @@
 ---
-layout: home
+layout: blogs
+content_type: blogs
 icon: fas fa-blog
 order: 2
 ---
 
-> This tab shows the blog index (same as home page). Add any introductory text here.
+> Welcome to my blog section. Here you'll find posts about Frontend Development, FPGA Design, and more.

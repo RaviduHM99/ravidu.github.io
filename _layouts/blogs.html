@@ -1,0 +1,205 @@
+---
+layout: default
+---
+
+{% include lang.html %}
+
+{% if page.content_type == 'projects' %}
+  {% assign all_pinned = site.posts | where: 'blog', false | where: 'pin', true %}
+  {% assign all_normal = site.posts | where: 'blog', false | where_exp: 'item', 'item.pin != true and item.hidden != true' %}
+  {% assign section_title = 'Projects' %}
+{% else %}
+  {% assign all_pinned = site.posts | where: 'blog', true | where: 'pin', true %}
+  {% assign all_normal = site.posts | where: 'blog', true | where_exp: 'item', 'item.pin != true and item.hidden != true' %}
+  {% assign section_title = 'Blogs' %}
+{% endif %}
+
+{% assign posts = '' | split: '' %}
+
+<style>
+  .card-wrapper {
+    border-radius: 16px;
+    overflow: hidden;
+    border: none;
+    background-color: var(--card-bg);
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .card-wrapper:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    background-color: var(--card-hover-bg, rgba(255, 255, 255, 0.08));
+  }
+
+  .card-wrapper img {
+    border-radius: 16px;
+  }
+
+  .post-preview {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .card-title {
+    color: #ffffff !important;
+    font-weight: 600;
+  }
+
+  .card-text p {
+    color: #d1d5db;
+  }
+
+  .post-meta {
+    color: #d1d5db;
+  }
+
+  .post-meta time,
+  .post-meta .categories {
+    color: #d1d5db;
+  }
+
+  .post-preview:hover .card-title {
+    color: var(--link-color);
+  }
+
+  .logo-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 6px;
+    backdrop-filter: blur(10px);
+  }
+
+  .logo-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+
+  html[data-mode='light'] .card-wrapper {
+    border: 1px solid rgba(15, 23, 42, 0.16);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+  }
+
+  html[data-mode='light'] .card-title {
+    color: #111111 !important;
+  }
+
+  html[data-mode='light'] .card-text p,
+  html[data-mode='light'] .post-meta,
+  html[data-mode='light'] .post-meta time,
+  html[data-mode='light'] .post-meta .categories {
+    color: #4b5563;
+  }
+
+  @media (prefers-color-scheme: light) {
+    html:not([data-mode='dark']) .card-wrapper {
+      border: 1px solid rgba(15, 23, 42, 0.16);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+    }
+
+    html:not([data-mode='dark']) .card-title {
+      color: #111111 !important;
+    }
+
+    html:not([data-mode='dark']) .card-text p,
+    html:not([data-mode='dark']) .post-meta,
+    html:not([data-mode='dark']) .post-meta time,
+    html:not([data-mode='dark']) .post-meta .categories {
+      color: #4b5563;
+    }
+  }
+</style>
+
+<div class="container">
+  <h1 style="margin-bottom: 2rem;">{{ section_title }}</h1>
+  
+  <div class="row">
+    {% if all_pinned.size > 0 %}
+      {% for post in all_pinned %}
+        <article class="card-wrapper card col-12 mb-4">
+          {% if post.image %}
+            <div class="logo-badge">
+              <img src="{{ post.image.path | relative_url }}" alt="{{ post.title }}" />
+            </div>
+          {% endif %}
+          <a class="post-preview row g-1 flex-md-row-reverse" href="{{ post.url | relative_url }}">
+            {% if post.image %}
+              <div class="col-md-6">
+                <img src="{{ post.image.path | relative_url }}" alt="{{ post.title }}"{% if post.image.lqip %} lqip="{{ post.image.lqip }}"{% endif %} style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+            {% endif %}
+            <div class="col-md-6">
+              <div class="card-body d-flex flex-column">
+                <h2 class="card-title my-2 mt-md-0">{{ post.title }}</h2>
+                <div class="card-text content mt-0 mb-3">
+                  <p>{{ post.description | strip_html | truncatewords: 30 }}</p>
+                </div>
+                <div class="post-meta flex-grow-1 d-flex align-items-end">
+                  <div class="me-auto">
+                    <i class="far fa-calendar fa-fw me-1"></i>
+                    <time data-ts="{{ post.date | date: '%s' }}" data-df="ll">{{ post.date | date: '%b %d, %Y' }}</time>
+                    {% if post.categories %}
+                      <span style="margin: 0 0.8rem;"></span>
+                      <i class="far fa-folder-open fa-fw me-1"></i>
+                      <span class="categories">{{ post.categories | join: ', ' }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </article>
+      {% endfor %}
+    {% endif %}
+
+    {% if all_normal.size > 0 %}
+      {% for post in all_normal %}
+        <article class="card-wrapper card col-12 mb-4">
+          {% if post.image %}
+            <div class="logo-badge">
+              <img src="{{ post.image.path | relative_url }}" alt="{{ post.title }}" />
+            </div>
+          {% endif %}
+          <a class="post-preview row g-1 flex-md-row-reverse" href="{{ post.url | relative_url }}">
+            {% if post.image %}
+              <div class="col-md-6">
+                <img src="{{ post.image.path | relative_url }}" alt="{{ post.title }}"{% if post.image.lqip %} lqip="{{ post.image.lqip }}"{% endif %} style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+            {% endif %}
+            <div class="col-md-6">
+              <div class="card-body d-flex flex-column">
+                <h2 class="card-title my-2 mt-md-0">{{ post.title }}</h2>
+                <div class="card-text content mt-0 mb-3">
+                  <p>{{ post.description | strip_html | truncatewords: 30 }}</p>
+                </div>
+                <div class="post-meta flex-grow-1 d-flex align-items-end">
+                  <div class="me-auto">
+                    <i class="far fa-calendar fa-fw me-1"></i>
+                    <time data-ts="{{ post.date | date: '%s' }}" data-df="ll">{{ post.date | date: '%b %d, %Y' }}</time>
+                    {% if post.categories %}
+                      <span style="margin: 0 0.8rem;"></span>
+                      <i class="far fa-folder-open fa-fw me-1"></i>
+                      <span class="categories">{{ post.categories | join: ', ' }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </article>
+        {% assign posts = posts | push: post %}
+      {% endfor %}
+
+      {% if paginator.total_pages > 1 %}
+        {% include post-paginator.html %}
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
