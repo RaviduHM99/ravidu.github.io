@@ -1,16 +1,16 @@
 ---
-title: 2. Introduction to React.js
+title: "ASIC Physical Design : Cadence Genus Inputs"
 description: >-
-  Learn the fundamentals of React.js, a powerful JavaScript library for building user interfaces. This guide covers components, JSX, and state management for beginners.
+  This blog describes the input files needed for Cadence Genus Synthesis and their functions.
 author: ravidu
 date: 2025-03-08 10:00:00 -0500
-categories: [Blogging, Frontend]
-tags: [react javascript]
+categories: [Blogging, ASIC, Digital, Frontend]
+tags: [Genus, Synthesis]
 pin: false
 blog: true
 image:
-  path: /assets/img/external/thumbnail.png
-  alt: Thumbnail
+  path: /assets/img/blogs/digital/frontend/Genus.jpg
+  alt: 
 ---
 
 ## Understanding React Components

@@ -9,7 +9,7 @@ tags: [fpga verilog image-processing]
 pin: true
 blog: false
 image:
-  path: /assets/img/external/thumbnail.png
+  path: /assets/img/blogs/digital/frontend/Genus.jpg
   alt: Thumbnail
 ---
 
