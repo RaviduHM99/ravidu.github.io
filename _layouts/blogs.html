@@ -152,21 +152,10 @@ layout: default
   <h1 style="margin-bottom: 2rem;">{{ section_title }}</h1>
   
   <div class="row">
-    {% if all_pinned.size > 0 %}
       {% for post in all_pinned %}
         <article class="card-wrapper card col-12 mb-4">
-          {% if post.image %}
-            <div class="logo-badge">
-              <img src="{{ post.image.path | relative_url }}" alt="{{ post.title }}" />
-            </div>
-          {% endif %}
           <div class="post-preview row g-0 flex-md-row-reverse" data-href="{{ post.url | relative_url }}">
-            {% if post.image %}
-              <div class="col-md-5">
-                <img src="{{ post.image.path | relative_url }}" alt="{{ post.title }}"{% if post.image.lqip %} lqip="{{ post.image.lqip }}"{% endif %}>
-              </div>
-            {% endif %}
-            <div class="col-md-7">
+            <div class="col-md-12">
               <div class="card-body d-flex flex-column">
                 <h2 class="card-title my-2 mt-md-0">
                   <a class="post-title-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
@@ -190,23 +179,12 @@ layout: default
           </div>
         </article>
       {% endfor %}
-    {% endif %}
 
     {% if all_normal.size > 0 %}
       {% for post in all_normal %}
         <article class="card-wrapper card col-12 mb-4">
-          {% if post.image %}
-            <div class="logo-badge">
-              <img src="{{ post.image.path | relative_url }}" alt="{{ post.title }}" />
-            </div>
-          {% endif %}
           <div class="post-preview row g-0 flex-md-row-reverse" data-href="{{ post.url | relative_url }}">
-            {% if post.image %}
-              <div class="col-md-5">
-                <img src="{{ post.image.path | relative_url }}" alt="{{ post.title }}"{% if post.image.lqip %} lqip="{{ post.image.lqip }}"{% endif %}>
-              </div>
-            {% endif %}
-            <div class="col-md-7">
+            <div class="col-md-12">
               <div class="card-body d-flex flex-column">
                 <h2 class="card-title my-2 mt-md-0">
                   <a class="post-title-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
